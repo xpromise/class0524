@@ -3,10 +3,13 @@
   "version": "0.0.1",
   "dependencies": {
     "jQuery": "^1.7.4",
+    "jquery": "^3.3.1",
     "math": "0.0.3",
-    "react": "^16.4.2"
+    "react": "^16.4.2",
+    "zepto": "^1.2.0"
   },
   "devDependencies": {
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "math": "^0.0.3"
   }
 }

@@ -8,10 +8,6 @@ var math = require('math');
     3. 将下载的包添加到生产依赖中  相当于 npm i xxx --save / npm i xxx -S
   
   npm i xxx --save-dev  下载指定包添加到开发依赖中  npm i xxx -D
-  
-  
-    
-  
  */
 
 console.log(math.add(2, 3));
