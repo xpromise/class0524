@@ -1,0 +1,12 @@
+{
+  "name": "node_test",
+  "version": "0.0.1",
+  "dependencies": {
+    "jQuery": "^1.7.4",
+    "math": "0.0.3",
+    "react": "^16.4.2"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.10"
+  }
+}

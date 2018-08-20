@@ -47,7 +47,7 @@ setImmediate()
           如果之前没有设置过setImmediate函数
             继续等待，轮询轮询队列（如果定时器到点了，它也会去下一个check阶段）
       *** check check阶段  执行setImmediate函数设置的回调函数
-      close callbacks  关闭阶段 close/end 事件触发，再次阶段执行其中的回调函数
+      close callbacks  关闭阶段 close/end 事件触发，再此阶段执行其中的回调函数
       
       
       process.nextTick 能在任意阶段优先执行
