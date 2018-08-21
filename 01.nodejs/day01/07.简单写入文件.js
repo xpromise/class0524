@@ -17,7 +17,7 @@
 //引入模块
 var fs = require('fs');
 
-//简单写入文件
+//简单写入文件 - 小文件
 fs.writeFile('test2.txt', '汗滴禾下土', {encoding: 'utf8', mode: 0o666, flag: 'a'}, function (err) {
   if (!err) {
     //没有错误
