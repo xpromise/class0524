@@ -27,7 +27,11 @@ app.get('/', function (request, response) {
   //express会自动解析查询字符串参数，将其解析成一个对象，挂载到request.query上
   console.log(request.query);  // { username: 'sunwukong', password: '123456' }
   //返回响应
-  response.send('<h1>这是express服务器返回的响应</h1>');
+  response.send('<h1>这是express服务器get返回的响应</h1>');
+})
+app.post('/', function (request, response) {
+  //返回响应
+  response.send('<h1>这是express服务器post返回的响应</h1>');
 })
 //监听端口号，开启服务器
 app.listen(80, function (err) {
