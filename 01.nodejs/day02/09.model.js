@@ -1,5 +1,6 @@
 //引入mongoose模块
 var mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false);
 //连接数据库
 mongoose.connect('mongodb://localhost:27017/mongoose_test', {useNewUrlParser: true});
 //绑定事件，监听数据库是否连接成功
@@ -54,10 +55,10 @@ var Students = mongoose.model('Students', studentsSchema);
             Model.deleteMany(查询条件，回调函数)
  */
 
-Students.deleteOne({age: {$lte: 22}}, function (err) {
+/*Students.deleteOne({age: {$lte: 22}}, function (err) {
   if (!err) console.log('数据删除成功');
   else console.log(err);
-})
+})*/
 
 /*Students.updateMany({}, {$inc: {age: 1}}, function (err) {
   if (!err) {
@@ -68,17 +69,16 @@ Students.deleteOne({age: {$lte: 22}}, function (err) {
 })*/
 
 
-/*Students.find({age: {$gt: 25}}, {name: 1, age: 1, _id: 0}, function (err, data) {
+Students.find({age: {$gt: 25}}, {name: 1, age: 1, _id: 0}, function (err, data) {
   if (!err) {
     console.log(data);
   } else {
     console.log(err);
   }
-})*/
+})
 
 
-/*
-Students.create({
+/*Students.create({
   name: '周文斌',
   age: 20,
   sex: '男',
