@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ejs</title>
+</head>
+<body>
+  <!--
+    < %    % >   在其中书写任意的js代码，没有任何输出到模板页面上
+    < %= % >   输出转义的数据到模板页面上，安全性更高
+    < %- % >   输出非转义的数据到模板页面上
+
+  -->
+
+  <%  console.log(data); data.username %>
+  <%= data.username %>
+  <%- data.username %>
+
+  <% for (var i = 0; i < 5; i++) { %>
+    <%= data.username %>
+    <h1>ejs模板引擎</h1>
+  <% } %>
+
+  <% if (data.age >= 18) { %>
+    <%= data.username %>
+  <% } %>
+
+</body>
+</html>
