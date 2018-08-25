@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>testAJAX</title>
+</head>
+<body>
+<input type="text"> <button id="btn">点击发送验证码</button>
+<script type="text/javascript">
+  var btn = document.getElementById('btn');
+
+  /*
+    1. 当用户点击按钮时，按钮样式发生变化
+    2. 用户不能一直发送ajax请求  --  函数节流
+    3. 取消上一次用户发送的ajax请求
+   */
+
+  //没有发送过ajax请求
+  // var flag = false;
+  //记录上一次发送请求的时间，初始化为0
+  var startTime = 0;
+  //用户等待的时间
+  var TIME = 5;
+  //储存上一次发送请求的xhr对象
+  var hasXHR = null;
+
+  btn.onclick = function () {
+    // if (flag) {
+    //   //说明之前发送过ajax请求
+    //   return;
+    // }
+
+    //已经发送过ajax请求，将flag置为true
+    // flag = true;
+
+    if (Date.now() - startTime <= TIME * 1000) {
+      return;
+    }
+    //同步时间
+    startTime = Date.now();
+
+    //定义倒计时的时间
+    var time = TIME;
+    btn.innerText = '已发送(' + time-- + 's)';
+    btn.style.color = 'gray';
+
+    var timer = setInterval(function () {
+
+      btn.innerText = '已发送(' + time-- + 's)';
+
+      if (time <= -1) {
+        //当时间到点了，清除定时器
+        clearInterval(timer);
+        btn.style.color = 'black';
+        btn.innerText = '点击发送验证码';
+        //到点了，可以再次发送ajax请求了
+        // flag = false;
+      }
+
+    }, 1000)
+
+
+    if (hasXHR) {
+      //说明之前发送过ajax请求, 但是没有接受到响应
+      //取消上一次发送的ajax请求
+      hasXHR.abort();
+      //重新发送一次请求
+      hasXHR = sendAJAX('GET', '/ajax');
+    } else {
+      //说明之前没有发送过ajax请求
+      //储存上一次发送请求的xhr对象
+      hasXHR = sendAJAX('GET', '/ajax');
+    }
+
+  }
+
+  function sendAJAX(method, url) {
+    //发送ajax请求
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        console.log(xhr.responseText);
+        //响应成功时，就不需要取消上一次的请求了
+        hasXHR = null;
+      }
+    }
+    xhr.open(method, url);
+    xhr.send();
+    return xhr;
+  }
+
+</script>
+</body>
+</html>
