@@ -28,8 +28,11 @@ function regTest(req, res, next) {
   var type = req.body.type;
   console.log(type); // regist
   
-  //初始化一个空的errMsg对象
-  var errMsg = {};
+  //初始化一个errMsg对象，保存用户的账号和邮箱
+  var errMsg = {
+    username: username,
+    email: email
+  };
   
   // 2. 判断密码和确认密码是否一致
   if (type === 'regist' && pwd !== rePwd) {
@@ -89,7 +92,8 @@ router.post('/login', regTest, function (req, res) {
     if (!err && data) {
       res.send('登录成功~~' + username);
     } else {
-      res.render('login', {errMsg: {err: '用户名或者密码错误'}});
+      errMsg.err = '用户名或者密码错误';
+      res.render('login', {errMsg: errMsg});
     }
   })
   
@@ -126,13 +130,14 @@ router.post('/regist', regTest, function (req, res) {
       //方法没有出错并且没有找到相同的用户名
       // 5. 将用户的信息保存数据库中，注册成功
       Users.create({username: username, pwd: sha1(pwd), email: email}, function (err) {
-        if (!err) res.render('login', {errMsg: errMsg});
+        if (!err) res.redirect('/userLogin');
         else console.log(err);
       })
     } else {
       //方法出错了或者找到了相同的用户名
       //返回响应，错误提示给用户
-      res.render('regist',{errMsg: {usernameErr: '用户名已存在，请重新输入~'}});
+      errMsg.usernameErr = '用户名已存在，请重新输入~';
+      res.render('regist',{errMsg: errMsg});
     }
   })
   

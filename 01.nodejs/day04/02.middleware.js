@@ -27,11 +27,11 @@ var app = express();
         必须传入4个参数，才能作为错误处理中间件解析
       5. 路由器中间件
         分类管理所有路由
-        
+
       所有的路由和中间件最终都会被添加到一个数组中，
         当请求进来时，遍历这个数组找到对应匹配的路由或者中间件去响应（调用相应的回调函数）,默认响应到此为止
         除非回调函数中调用了next方法，此时才会接下来继续遍历查找
-        
+
  */
 //定义中间件
 //内置中间件
@@ -53,7 +53,7 @@ app.use(bodyParser.urlencoded({extended: true}));
     res.end('error');
     return;
   }
-  
+
   next();
 })*/
 
@@ -68,15 +68,15 @@ function middleware(req, res, next) {
     res.end('error');
     return;
   }
-  
+
   next();
 }
 
 app.get('/', middleware, function (req, res, next) {
   console.log('根路由处理好的请求');
-  
+
   console.log(req.query);
-  
+
   res.send('这是根路由返回的响应');
 })
 
