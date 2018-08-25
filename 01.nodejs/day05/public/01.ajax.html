@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ajax</title>
+</head>
+<body>
+  <button id="btn">点击按钮发送ajax请求</button>
+  <script type="text/javascript">
+
+    var btn = document.getElementById('btn');
+
+    btn.onclick = function () {
+      /*
+     1. 创建一个xhr对象
+     2. 绑定事件监听 onreadystatechange  接受响应
+     3. 设置请求信息
+     4. 发送请求
+    */
+
+      //1. 创建一个xhr对象
+      var xhr = new XMLHttpRequest();
+
+      //2. 绑定事件监听 onreadystatechange  接受响应
+      /*
+        readyState xhr对象在发送请求过程中，会有5种状态
+          0  open()方法还没调用，xhr对象创建成功
+          1  send()方法还没调用，设置请求信息
+          2  send()方法已经调用，（已经发送请求了），接受了部分响应的数据（响应首行和响应头），就可以获取响应头信息和响应状态码
+          3  接受了部分的响应体的数据（如果响应体是一个纯文本，在此阶段就全部接受了）
+          4  接受了全部的响应体的数据
+       */
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 2) {
+          console.log(xhr.status);
+          console.log(xhr.getResponseHeader('Content-Type'));
+        }
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          //接受响应
+          console.log(xhr.responseText);  //响应的数据
+        }
+      }
+
+      //3. 设置请求信息
+      /*
+        xhr.open(请求方式, 请求地址);
+          - get请求的请求参数一般写在请求地址，以查询字符串的方式
+          - post请求的请求参数写在xhr.send(body)，body就是post请求的请求参数
+
+        chrome/firefox
+          发送同样的ajax请求，第一个请求状态200，后面的请求状态码为304，走缓存（还是向服务器发送了请求）
+        IE
+          发送同样的ajax请求，第一个请求状态200,后面的请求状态码为200，走缓存（没有向服务器发送请求）
+          解决方式：让每一次请求不一样，IE就不会缓存数据（在请求参数中加上时间戳、随机数）
+       */
+      xhr.open('GET', '/ajax?username=sunwukong&time=' + Date.now());
+      xhr.setRequestHeader('Content-Type', 'text/plain');
+
+      //4. 发送请求
+      xhr.send();
+    }
+
+
+
+
+  </script>
+</body>
+</html>
