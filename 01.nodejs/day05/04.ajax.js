@@ -1,10 +1,13 @@
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 
 app.use(express.static('public'));
 
-app.get('/ajax', function (req, res) {
-  console.log(req.query);
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.post('/ajax', function (req, res) {
+  console.log(req.body); // { username: 'sunwokong', password: '123123' }
   res.send('这是ajax返回的响应~');
 })
 

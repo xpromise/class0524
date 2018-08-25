@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<button id="btn">点击按钮发送ajax请求</button>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript">
+  $('#btn').click(function () {
+    /*$.ajax('/ajax', {
+      method: 'POST',
+      data: 'username=sunwokong&password=123123',
+      headers: {
+        // 'Content-Type': 'text/plain'
+      },
+      success: function (data) {
+        console.log(data);
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    })*/
+
+    $.post('/ajax', 'username=sunwokong&password=123123', function (data) {
+      console.log(data);
+    })
+
+  })
+</script>
+</body>
+</html>
