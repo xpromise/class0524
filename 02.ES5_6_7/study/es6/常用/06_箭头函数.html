@@ -68,7 +68,7 @@
   // foo7();  //window
   // foo7.call(foo6)  //window
 
-  //箭头没有自己的this，它的this和最近的一层函数的this指向一致
+  //箭头没有自己的this，它的this和最近的包裹着它的一层函数的this指向一致
   //箭头this没办法自己改变（不能通过new call等方法改变）
   //箭头的this定义时就就决定跟着哪个函数了
   /*function foo10() {

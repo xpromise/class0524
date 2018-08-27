@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+  <div id="news"></div>
+  <div id="comments"></div>
+  <script type="text/javascript">
+
+
+    //封装了一个包装了promise对象ajax
+    function sendAjax(url) {
+      return new Promise((resolve, reject) => {
+        //发送请求
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+              console.log(xhr.responseText);
+              //调用resolve，将状态改为成功的状态
+              resolve(JSON.parse(xhr.responseText));
+            } else {
+              //调用reject，将状态改为失败的状态
+              reject('请求失败了');
+            }
+          }
+        }
+        xhr.open('GET', url);
+        xhr.send();
+      })
+    }
+
+    //发送请求，请求新闻数据
+    sendAjax('http://localhost:3000/news?id=1')
+      .then(res => {
+        //接受到了新闻数据
+        console.log(res);
+        //将新闻数据展示在页面上
+        document.getElementById('news').innerHTML = `<h1>${res.title}</h1><p>${res.content}</p>`;
+        //接着请求评论数据
+        return sendAjax(`http://localhost:3000${res.commentsUrl}`)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .then(res => {
+        //接受到了评论数据
+        console.log(res);
+        //将评论数据展示在页面上
+        let html = '';
+        res.forEach(function (item, index) {
+          html += `<h4>${item.content}</h4>`;
+        })
+        document.getElementById('comments').innerHTML = html;
+      })
+      .catch(err => {
+        console.log(err);
+      })
+
+
+
+  </script>
+</body>
+</html>

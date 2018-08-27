@@ -44,6 +44,137 @@
 
 <script type="text/javascript">
 
+  /*setTimeout(function () {
+    console.log('a数据接受完毕了');
+    setTimeout(function () {
+      console.log('b数据接受完毕了');
+      setTimeout(function () {
+        console.log('c数据接受完毕了');
+      }, 2000)
+    }, 2000)
+  }, 2000)*/
+
+  //创建一个promise
+  /*const promise = new Promise((resolve, reject) => {
+    //异步的代码放到promise对象中执行
+    //promise对象有三种状态：1. 准备状态 pendding  2. 成功状态 fullfilled  3. 失败状态 rejected
+    //promise对象创建时初始化状态为 pendding
+    //想要状态发生变化，就要调用resolve() 将状态改为 fullfilled  ，还可以调用reject() 将状态改为 rejected
+    //promise对象就是根据状态的变化来决定执行的内容
+    setTimeout(function () {
+      console.log('a数据接受完毕了');
+      //将状态改为成功的状态
+      resolve();  //一旦次方法调用，立即立即触发promise.then方法中传入的第一个函数
+    }, 2000)
+  })*/
+
+  /*function createPromise(fn) {
+    return new Promise((resolve, reject) => {
+      fn(resolve, reject)
+    })
+  }
+
+  const promise1 = createPromise((resolve, reject) => {
+    setTimeout(function () {
+      console.log('a数据接受完毕了');
+      //将状态改为成功的状态
+      resolve();  //一旦次方法调用，立即立即触发promise.then方法中传入的第一个函数
+    }, 2000)
+  })
+
+  promise1.then(() => {
+    //第一个参数，代表promise对象是成功的状态
+    console.log('a数据请求成功');
+
+    return createPromise((resolve, reject) => {
+      setTimeout(function () {
+        console.log('b数据接受完毕了');
+        //将状态改为成功的状态
+        resolve();  //一旦次方法调用，立即立即触发promise.then方法中传入的第一个函数
+      }, 2000)
+    })
+
+    /!*promise2.then(() => {
+      //请求成功的回调
+    }, () => {
+      //请求失败的回调
+    })*!/
+
+  }, () => {
+    //第一个参数，代表promise对象是失败的状态
+    console.log('a数据请求失败');
+
+  }).then(() => {  //就是上一个then函数的返回值promise对象，成功/失败的回调
+    console.log('b数据请求成功');
+
+  }, () => {
+    console.log('b数据请求失败');
+
+  })*/
+
+  /********************************/
+
+  /*const promise = new Promise((resolve, reject) => {
+    setTimeout(function () {
+      console.log('a数据接受完毕了');
+      //将状态改为成功的状态
+      // resolve('a数据接受完毕了');  //一旦次方法调用，立即立即触发promise.then方法中传入的第一个函数
+      reject('a数据接受失败了');  //一旦次方法调用，立即立即触发promise.then方法中传入的第二个函数
+    }, 2000)
+  })
+
+  promise
+    // .then(res => {}, err => {})
+    // .then(res => {}, err => {})
+    .then(result => {
+      //成功的回调
+      console.log('成功的回调');
+      console.log(result);
+    })
+    .catch(error => {
+      //失败的回调
+      console.log('失败的回调');
+      console.log(error);
+    })*/
+
+  /*******************************/
+  /*
+    new Promise()  产生promise实例对象，状态为pendding
+    //通常如果是简单的数据需要包装promise对象，就使用下面这两种方法
+    - Promise.resolve()  产生promise实例对象，状态为fullfilled
+    - Promise.reject()  产生promise实例对象，状态为rejected
+   */
+  const promise = new Promise((resolve, reject) => {
+    setTimeout(function () {
+      console.log('a数据接受完毕了');
+      //将状态改为成功的状态
+      resolve('a数据接受完毕了');  //一旦次方法调用，立即立即触发promise.then方法中传入的第一个函数
+      // reject('a数据接受失败了');  //一旦次方法调用，立即立即触发promise.then方法中传入的第二个函数
+    }, 2000)
+  })
+
+  promise
+  // .then(res => {}, err => {})
+  // .then(res => {}, err => {})
+    .then(result => {
+      //成功的回调
+      console.log('成功的回调');
+      console.log(result);
+      return Promise.resolve(result);  //返回了一个状态为成功的promise对象，对象中包含result数据
+    })
+    .catch(error => {
+      //失败的回调
+      console.log('失败的回调');
+      console.log(error);
+    })
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+
+
 </script>
 
 </body>
