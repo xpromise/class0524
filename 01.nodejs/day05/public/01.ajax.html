@@ -53,7 +53,7 @@
           发送同样的ajax请求，第一个请求状态200,后面的请求状态码为200，走缓存（没有向服务器发送请求）
           解决方式：让每一次请求不一样，IE就不会缓存数据（在请求参数中加上时间戳、随机数）
        */
-      xhr.open('GET', '/ajax?username=sunwukong&time=' + Date.now());
+      xhr.open('GET', 'http://localhost:3000/ajax?username=sunwukong&time=' + Date.now());
       xhr.setRequestHeader('Content-Type', 'text/plain');
 
       //4. 发送请求

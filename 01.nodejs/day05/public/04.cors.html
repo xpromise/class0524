@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ajax</title>
+</head>
+<body>
+  <button id="btn">点击按钮发送ajax请求</button>
+  <script type="text/javascript">
+
+    var btn = document.getElementById('btn');
+    /*
+      特点：
+        1. 官方提供的解决方案，设置简单 Access-Control-Allow-Origin
+        2. 能够发送任意的请求get/post...
+        3. 兼容性稍差，老版本浏览器不兼容
+     */
+    btn.onclick = function () {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          //接受响应
+          console.log(xhr.responseText);  //响应的数据
+        }
+      }
+      xhr.open('GET', 'http://localhost:3000/cors');
+      xhr.send();
+    }
+
+
+
+
+  </script>
+</body>
+</html>

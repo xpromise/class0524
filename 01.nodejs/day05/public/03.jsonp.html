@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>jsonp</title>
+</head>
+<body>
+  <button id="btn">点我</button>
+  <script type="text/javascript">
+    var btn = document.getElementById('btn');
+    /*
+      特点:
+        兼容性极好
+        只能发送get请求
+     */
+    btn.onclick = function () {
+      //创建script标签
+      var script = document.createElement('script');
+      //设置回调函数- 请求成功后，响应回来时调用的函数
+      window.getData = function (data) {
+        console.log(data);
+      }
+      //设置script的src属性
+      script.src = 'http://localhost:3000/jsonp?callback=getData';
+      //将其添加到body中生效
+      document.body.appendChild(script);
+    }
+
+  </script>
+</body>
+</html>
