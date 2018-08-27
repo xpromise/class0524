@@ -26,6 +26,32 @@
 -->
 <script type="text/javascript">
 
+  // console.log(username);  // Uncaught ReferenceError: username is not defined
+  let username = 'sunwukong';  //没有变量提升
+  //不能重复声明
+  // let username = 'zhubajie';  // Uncaught SyntaxError: Identifier 'username' has already been declared
+
+  if (true) {
+    // var age = 18;
+    let age = 18;   //产生块级作用域，只能在块级作用域内生效
+  }
+  // console.log(age); // Uncaught ReferenceError: age is not defined
+
+  var btns = document.querySelectorAll('button');
+
+  /*for (var i = 0; i < btns.length; i++) {
+    (function (i) {
+      btns[i].onclick = function () {
+        alert(i);
+      }
+    })(i)
+  }*/
+  //循环遍历加监听
+  for (let i = 0; i < btns.length; i++) {
+    btns[i].onclick = function () {
+      alert(i);
+    }
+  }
 
 </script>
 </body>

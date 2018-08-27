@@ -26,6 +26,8 @@ function regTest(req, res, next) {
   var rePwd = req.body.rePwd;
   var email = req.body.email;
   var type = req.body.type;
+  //解构赋值
+  // const {username, pwd, rePwd, email, type} = req.body;
   console.log(type); // regist
   
   //初始化一个errMsg对象，保存用户的账号和邮箱

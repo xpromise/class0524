@@ -19,6 +19,28 @@
   };
 -->
 <script type="text/javascript">
+  const name = 'sunwukonog';
+  const age = 18;
+
+  const person1 = {
+    name: name,
+    age: age,
+    setName: function (name) {
+      this.name = name;
+    }
+  }
+
+  //对象的简写方式
+  const person2 = {
+    name,  //属性名和变量名相同 可以省略不写
+    age,
+    setName (name) {   //定义方法可以省略function关键字
+      this.name = name;
+    }
+  }
+  console.log(person1);
+  console.log(person2);
+
 
 </script>
 </body>

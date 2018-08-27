@@ -16,6 +16,21 @@
   * 给多个形参赋值
 -->
 <script type="text/javascript">
+  const person = {
+    name: '孙悟空',
+    age: 18
+  }
+  // const name = person.name;
+  // const age = person.age;
+  //对象的解构赋值
+  const {name, age, sex} = person;  //将等号右边的对象进行解构，将值赋值给等号左边的变量
+                                    //解构对象/数组不存在的属性/方法，返回值是undefined
+  console.log(name, age, sex);
+
+  //数组的解构赋值
+  const arr = [1, 'atguigu',true];
+  const [a, b, c, d] = arr;  //根据位置关系，一一对应
+  console.log(a, b, c, d);
 
 </script>
 </body>
