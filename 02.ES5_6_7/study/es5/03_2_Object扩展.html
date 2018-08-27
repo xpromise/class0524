@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--
+    对象本身的两个方法
+    * get propertyName(){} 用来得到当前属性值的回调函数
+    * set propertyName(){} 用来监视当前属性值变化的回调函数
+-->
+<script type='text/javascript'>
+  var person = {
+    firstName: 'bob',
+    lastName: 'jack',
+    // fullName: function () {
+    //   return this.firstName + ' ' + this.lastName;
+    // }
+    get fullName () {  //定义当前属性读取时调用的函数
+      return this.firstName + ' ' + this.lastName;
+    },
+    set fullName (value) {  //定义当前属性设置时调用的函数
+      // console.log(value);
+      var arr = value.split(' ');
+      this.firstName = arr[0];
+      this.lastName = arr[1];
+    }
+  }
+  // console.log(person.fullName());
+  console.log(person.fullName);
+  person.fullName = 'tom jerry';
+  console.log(person.fullName);
+
+</script>
+</body>
+</html>
