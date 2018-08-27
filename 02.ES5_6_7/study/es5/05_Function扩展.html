@@ -14,6 +14,23 @@
   * bind()是将函数返回
 -->
 <script type="text/javascript">
+  function fn() {
+    console.log(this);
+  }
+  fn();  //window
+  var obj = {}
+  var newFn = fn.bind(obj);
+  newFn(); // obj
+
+  /*
+  面试题: 区别bind()与call()和apply()?
+    - call()和apply()
+      联系： 都会立即调用函数，会强制绑定函数this指向
+      区别： call(obj, a, b, c...)  apply(obj, [a, b, c])
+    -  call()和apply() 与bind()
+      区别： bind不会立即调用函数，也不会改变当前函数的this指向，会返回一个新的函数，强制绑定了新的函数的this指向
+            bind(obj, a, b, c...)
+   */
 
 </script>
 </body>
