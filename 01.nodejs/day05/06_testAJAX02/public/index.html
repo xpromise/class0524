@@ -18,7 +18,14 @@
 	<option>请选择区(县)</option>
 </select> 区(县)
 
+<script type="text/html" id="tpl">
+  {{each list}}
+    <option value="{{$value[name]}}">{{$value.name}}</option>
+  {{/each}}
+</script>
+
 <script type="text/javascript" src="./js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="./js/template-web.js"></script>
 <script type="text/javascript">
 	$(function () {
     var $province = $('#province');
@@ -30,13 +37,11 @@
       if (data.status === 'ok') {
         //请求成功，数据是ok的
         var province = data.data;
-
-        var html = '<option>请选择省份</option>';
-        province.forEach(function (item) {
-          html += '<option value="' + item.province + '">' + item.name + '</option>'
-        })
+        //编译模板
+        var tplStr = template('tpl', {list: province, name: 'province'});
+        var html = '<option>请选择省份</option>' + tplStr;
+        //应用编译完成的标签字符串
         $province.html(html)
-
       } else {
         alert('网络错误，请稍后再试');
       }
@@ -54,13 +59,10 @@
         if (data.status === 'ok') {
           //请求成功，数据是ok的
           var city = data.data;
-
-          var html = '<option>请选择市</option>';
-          city.forEach(function (item) {
-            html += '<option value="' + item.city + '">' + item.name + '</option>';
-          })
+          //编译模板
+          var tplStr = template('tpl', {list: city, name: 'city'});
+          var html = '<option>请选择市</option>' + tplStr;
           $city.html(html)
-
         } else {
           alert('网络错误，请稍后再试');
         }
@@ -81,10 +83,9 @@
           //请求成功，数据是ok的
           var county = data.data;
 
-          var html = '<option>请选择区(县)</option>';
-          county.forEach(function (item) {
-            html += '<option value="' + item.county + '">' + item.name + '</option>';
-          })
+          var tplStr = template('tpl', {list: county, name: 'county'});
+          var html = '<option>请选择区(县)</option>' + tplStr;
+
           $county.html(html)
 
         } else {
