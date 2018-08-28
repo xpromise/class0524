@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>async函数</title>
+</head>
+<body>
+<div id="news"></div>
+<div id="comments"></div>
+<script type="text/javascript" src="./js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+  //定义发送请求的函数
+  function sendAjax(url) {
+    return new Promise((resolve, reject) => {
+      $.get(url, data => resolve(data))
+    })
+  }
+
+  //定义async函数
+  async function getNews() {
+    //请求新闻数据
+    let result = await sendAjax('http://localhost:3000/news?id=1');
+    //展示数据
+    $('#news').html(`<h1>${result.title}</h1><p>${result.content}</p>`);
+    //获取评论的地址
+    const url = `http://localhost:3000${result.commentsUrl}`;
+    //请求评论数据
+    result = await sendAjax(url);
+    //展示数据
+    let html = '';
+    for (let value of result) {
+      html += `<p>${value.content}</p>`;
+    }
+    $('#comments').html(html);
+  }
+
+  getNews();
+
+</script>
+
+</body>
+</html>

@@ -24,6 +24,63 @@
 -->
 <script type="text/javascript" src="./js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
+  //创建一个promise对象
+  const promise = new Promise((resolve, reject) => {
+    //执行异步代码
+    setTimeout(function () {
+      console.log('数据请求完毕了');
+      resolve('data');
+      // reject('error');
+    }, 2000)
+  })
+
+  //定义async函数
+  async function asyncFn() {
+    console.log('函数开始执行');
+    //await关键字后面后面跟着promise，才会暂停函数的执行
+    //如果想要继续执行函数，需要改变promise对象的状态
+    //await关键字左边的值，就是右边promise对象返回结果（resolve(xxx) / reject(xxx)）
+    /*try {
+      //可能发生异常的代码
+      let result = await promise;
+      console.log(result);
+      console.log('函数执行中');
+      await promise;
+      console.log('函数执行完了');
+    } catch (err) {
+      //一旦try中的代码发生异常，就会执行catch的逻辑
+      //err就代表错误产生的原因
+      console.log(err);
+      //重新发送请求
+    }*/
+
+    //throw new Error()  抛异常错误
+
+
+    let result = await promise;
+    console.log(result);
+    console.log('函数执行中');
+    await promise;
+    console.log('函数执行完了');
+
+    return 'hello async';
+
+  }
+  //一旦调用async会自动执行其中的代码
+  //遇到await关键字，会暂停一下（后面要跟着promise对象），如果不是promise对象，就不会暂停
+  //执行async函数，函数的返回值是一个promise对象，默认情况
+  // const res = asyncFn();
+  // console.log(res);
+
+  /*asyncFn()
+    .then(res => console.log(res))
+    .catch(err => console.log(err))*/
+
+  /*(async () => {
+    let result = await asyncFn();
+    console.log(result);
+  })()*/
+
 
 </script>
 
