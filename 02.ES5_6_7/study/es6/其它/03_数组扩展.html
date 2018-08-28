@@ -19,6 +19,26 @@
 4. findIndex(function(value, index, arr){return true}) : 找出第一个满足条件返回true的元素下标
 -->
 <script type="text/javascript">
+  const btns = document.querySelectorAll('button');
+  console.log(btns);  //伪数组
+  const arr = Array.from(btns);
+  console.log(arr);
+
+  const arr1 = Array.of(1, 'star', true);
+  console.log(arr1);
+
+  //如果找到匹配的元素（返回值true），就会将找到的元素返回出去，退出循环
+  const el = arr1.find(function (item, index, arr) {
+    console.log(item, index, arr);
+    return item === 1;
+  })
+  console.log(el);  // 1
+
+  const index = arr1.findIndex(function (item, index, arr) {
+    console.log(item, index, arr);
+    return item === 1;
+  })
+  console.log(index);
 
 </script>
 </body>

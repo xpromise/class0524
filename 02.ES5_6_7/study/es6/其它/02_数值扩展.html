@@ -14,6 +14,15 @@
 6. Math.trunc(i) : 直接去除小数部分
 -->
 <script type="text/javascript">
+  console.log(0b1010);
+  console.log(0o666);
+
+  console.log(Number.isFinite(Infinity));  //false
+  console.log(Number.isNaN(NaN));  //true
+  console.log(Number.isInteger(10.5));  //false
+  console.log(Number.parseInt('123a'));  //123
+  console.log(Number.parseInt('a123'));  //NaN
+  console.log(Math.trunc(10.5)); //向下取整
 
 </script>
 </body>
