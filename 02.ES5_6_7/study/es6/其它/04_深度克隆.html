@@ -32,6 +32,78 @@
         5). 深拷贝包含函数数据的对象/数组
 -->
 <script type="text/javascript">
+  /*let num1 = 123;
+  let num2 = num1;
+  num2 = 456;  //值传递，传递的是值，相当于在内存中重新开辟一个空间，保存新的值
+  console.log(num1);
+
+  let obj1 = {name: 'bob'};
+  let obj2 = obj1;  //引入/值传递，保存的是地址值，内存中并没有重新创建新的对象  浅度克隆
+  obj2.age = 18;
+  console.log(obj1);*/
+
+  //浅度克隆的方法
+  /*let obj3 = {name: 'bob', sex: {option1: '男', option2: '女'}};
+  const newObj = Object.assign({}, obj3)
+  newObj.sex.option3 = '人妖';
+  console.log(obj3);
+
+  let arr1 = [1, 2, {option1: '男', option2: '女'}];
+  let arr2 = [].concat(arr1);
+  arr2[2].option3 = '人妖';
+  console.log(arr1);*/
+
+  //深度克隆
+  /*let obj1 = {name: 'bob', sex: {option1: '男', option2: '女'}, setName: () => {}};
+  let newObj = JSON.parse(JSON.stringify(obj1));  //实现深度克隆，但是有缺陷, 没办法克隆方法
+  newObj.sex.option3 = '人妖';
+  console.log(newObj);
+  console.log(obj1);*/
+
+  //定义检查数据类型的方法
+  function checkDataType(data) {
+    return Object.prototype.toString.call(data).slice(8, -1);
+  }
+
+  function deepClone(data) {
+    //初始化新的数据
+    let newData = null;
+    //数据类型检查
+    const type = checkDataType(data);
+    //只做对象和数组的深度克隆，其他类型全部返回出去
+    if (type === 'Object') {
+      newData = {};
+    } else if (type === 'Array') {
+      newData = [];
+    } else {
+      return data;
+    }
+    //往对象/数组中添加指定要复制的数据
+    for (let key in data) {
+      //如果是对象，key就是属性名
+      //如果是数组，key就是下标
+      let value = data[key];
+      //判断属性值是否是对象/数组
+      //如果是对象/数组的话，仅仅克隆的是引用的地址值，不能实现深度克隆的需求
+      if (checkDataType(value) === 'Object' || 'Array') {
+        //递归函数, 深度克隆对象/数组中的对象/数组
+        newData[key] = deepClone(value);
+      } else {
+        //往新对象上添加属性和对应的值
+        newData[key] = value;
+      }
+
+    }
+
+    //将克隆好的数据返回出去
+    return newData
+  }
+
+  const obj1 = {name: 'bob', sex: {option1: '男', option2: '女'}, setName: () => {}};
+  const obj2 = deepClone(obj1);
+  console.log(obj2);
+  obj2.sex.option3 = '人妖';
+  console.log(obj1);
 
 </script> 
 </body>

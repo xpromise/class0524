@@ -26,6 +26,52 @@
 -->
 
 <script type="text/javascript">
+  /*//Set容器 : 无序不可重复的多个value的集合体
+  let set = new Set([1, 8, 3, 6, 3, 5, 1, 8]);
+  console.log(set);
+  console.log(set.size);
+  // console.log(set[0]); //不能通过下标取赋值
+  // * add(value)
+  set.add(10);
+  console.log(set);
+  // * delete(value)
+  set.delete(10);
+  console.log(set);
+  // * has(value)
+  console.log(set.has(1)); //true
+  // * clear()
+  // set.clear();
+  // console.log(set);
+
+  //数组的去重
+  const arr1 = [1, 8, 3, 6, 3, 5, 1, 8];
+  const arr2 = [...new Set(arr1)];
+  /!*
+    new Set(arr1)  //set容器已经去重了数组
+    通过三点运算符将set容器中的数组展开了
+   *!/
+  console.log(arr2);
+
+  //遍历,因为set容器中有Symbol.iterator接口
+  for (let value of set) {
+    console.log(value);
+  }*/
+
+  // Map容器 : 无序的 key不重复的多个key-value的集合体
+  const map = new Map();
+  console.log(map);
+  map.set({name: 'jack'}, 'bob');
+  console.log(map);
+
+  const map1 = new Map([
+    [{name: 'jack'}, 'bob'],
+    ['age', 18]
+  ])
+  console.log(map1);
+
+  for (let value of map1) {
+    console.log(value);
+  }
 
 </script>
 </body>
