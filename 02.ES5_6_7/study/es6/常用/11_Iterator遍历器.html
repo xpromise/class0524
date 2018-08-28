@@ -29,6 +29,67 @@
 
   <script type="text/javascript">
 
+    /*function iterator(arr) {
+      //数组的长度
+      const length = arr.length;
+      //数组的下标
+      let nowIndex = 0;
+      return {
+        next () {
+          return nowIndex < length ? {value: arr[nowIndex++], done: false} : {value: undefined, done: true};
+        }
+      }
+    }
+
+    //创建指针/遍历器对象
+    const iteratorObj = iterator([2, 5, 6, 9]);
+
+    console.log(iteratorObj.next());
+    console.log(iteratorObj.next());
+    console.log(iteratorObj.next());
+    console.log(iteratorObj.next());
+    console.log(iteratorObj.next());
+    console.log(iteratorObj.next());
+    console.log(iteratorObj.next());*/
+
+    //所有部署了Iterator接口的数据，就能够使用for of遍历
+    // 1、Array
+    /*const arr = [2, 5, 6, 9];
+    console.log(arr);
+    for (let value of arr) {
+      console.log(value);
+    }*/
+    // 2、arguments
+    /*function fn() {
+      console.log(arguments);
+      for (let value of arguments) {
+        console.log(value);
+      }
+    }
+    fn(1, 2, 3, 4);*/
+    // 3、set容器 后面讲
+    // 4、map容器 后面讲
+    // 5、String
+    /*const str = 'hello atguigu';
+    console.log(str);
+    for (let value of str) {
+      console.log(value);
+    }*/
+
+    /*const num = 123;  // num is not iterable
+    for (let value of num) {
+      console.log(num);
+    }*/
+    //对象没有iterator接口
+    /*const person = {  //person is not iterable
+      name: 'bob',
+      age: 18
+    }
+    for (let value of person) {
+      console.log(value);
+    }*/
+
+
   </script>
 </body>
 </html>

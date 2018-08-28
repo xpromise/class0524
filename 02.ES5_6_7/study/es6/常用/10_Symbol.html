@@ -32,6 +32,30 @@
 
 
 <script type="text/javascript">
+  let person = {}
+  //创建Symbol属性, 返回值是一个唯一的值
+  // const s1 = Symbol();
+  // const s2 = Symbol();
+  //通常创建时，会传入参数，作为属性标识
+  const s1 = Symbol('name');
+  const s2 = Symbol('age');
+  console.log(typeof s1);
+  //Symbol属性做属性名必须以中括号[]方式添加
+  person[s1] = 'jack';
+  person[s2] = 18;
+  console.log(person);
+  console.log(person[s1]);
+  console.log(person[s2]);
+
+
+  // console.log(s1 + 123);  // Cannot convert a Symbol value to a number
+  // console.log(s1 + 'str');   // Cannot convert a Symbol value to a string
+
+  for (let key in person) {
+    console.log(key);
+  }
+
+
 
 </script>
 

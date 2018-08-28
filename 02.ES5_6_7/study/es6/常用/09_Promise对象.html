@@ -144,7 +144,7 @@
     - Promise.resolve()  产生promise实例对象，状态为fullfilled
     - Promise.reject()  产生promise实例对象，状态为rejected
    */
-  const promise = new Promise((resolve, reject) => {
+ /* const promise = new Promise((resolve, reject) => {
     setTimeout(function () {
       console.log('a数据接受完毕了');
       //将状态改为成功的状态
@@ -172,8 +172,51 @@
     })
     .catch(err => {
       console.log(err);
-    })
+    })*/
 
+ /*******************************/
+
+ const promise1 = new Promise((resolve, reject) => {
+   setTimeout(function () {
+     console.log('a数据请求成功了~');
+     resolve('a数据请求成功了~');
+   }, 2000)
+ })
+
+  const promise2 = new Promise((resolve, reject) => {
+    setTimeout(function () {
+      console.log('b数据请求成功了~');
+      resolve('b数据请求成功了~');
+    }, 1000)
+  })
+
+  const promise3 = new Promise((resolve, reject) => {
+    setTimeout(function () {
+      console.log('c数据请求成功了~');
+      resolve('c数据请求成功了~');
+    }, 3000)
+  })
+  
+  /*Promise.all([promise1, promise2, promise3])
+    .then(res => {
+      console.log(res);
+      console.log('全部promise对象都变成成功的状态时，才会被触发');
+    })
+    .catch(err => {
+      console.log(err);
+      console.log('一旦其中某一个变成了失败的状态，就立即触发失败的回调');
+    })*/
+
+  //一旦传入的多个promise对象中其中一个状态发生变化，就立即触发相应的回调函数
+  Promise.race([promise1, promise2, promise3])
+    .then(res => {
+      console.log(res);
+      console.log('一旦其中某一个变成了成功的状态，就立即触发成功的回调');
+    })
+    .catch(err => {
+      console.log(err);
+      console.log('一旦其中某一个变成了失败的状态，就立即触发失败的回调');
+    })
 
 </script>
 
