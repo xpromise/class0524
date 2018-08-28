@@ -28,7 +28,42 @@
   -->
 <script type="text/javascript" src="./js/jquery-1.10.1.min.js"></script>
 <script type="text/javascript">
+  /*//定义了一个generator函数
+  function* generator() {
+    console.log('函数开始执行了');
+    //yield关键字后面（右边）的参数就是当前执行的next方法的返回值
+    //yield关键字左边的返回值由下一次next调用时传递的参数决定的
+    let result = yield 'hello';
+    console.log(result);
+    console.log('函数执行中');
+    result = yield 'atguigu';
+    console.log(result);
+    console.log('函数执行完毕了');
+  }
+  //执行generator函数，返回一个遍历器对象
+  //并不会执行函数体的代码
+  const g = generator();
+  //需要调用遍历器对象的next方法，才能执行函数体代码
+  //当遇到yield关键字时，继续暂停函数的执行
+  console.log(g.next());
+  console.log(g.next('第二次next方法调用传递的参数'));
+  console.log(g.next('第三次next方法调用传递的参数'));*/
 
+  //给对象手动添加iterator接口
+  let person = {};
+  person[Symbol.iterator] = function* () {
+    yield 1;
+    yield 3;
+    yield 5;
+  }
+  console.log(person);
+  for (let value of person) {
+    console.log(value);
+  }
+  //所有部署了iterator接口的数据，都能使用三点运算符
+  console.log(...person);
+  const str = 'hello atguigu';
+  console.log(...str);
 
 </script>
 </body>

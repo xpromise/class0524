@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generator函数</title>
+</head>
+<body>
+<div id="news"></div>
+<div id="comments"></div>
+
+<script type="text/javascript" src="./js/jquery-1.10.1.min.js"></script>
+<script type="text/javascript">
+  //定义发送请求方法
+  function sendAjax(url) {
+    $.get(url, data => g.next(data));
+  }
+
+  //定义generator函数
+  function* generator() {
+    //发送请求，请求新闻数据
+    let result = yield sendAjax('http://localhost:3000/news?id=1');
+    //展示数据
+    $('#news').html(`<h1>${result.title}</h1><p>${result.content}</p>`);
+    //发送请求，请求评论数据
+    console.log(result);
+    const url = `http://localhost:3000${result.commentsUrl}`;
+    result = yield sendAjax(url);
+    console.log(result);
+    //展示评论数据
+    let html = '';
+    for (let value of result) {
+      html += `<p>${value.content}</p>`;
+    }
+    $('#comments').html(html);
+  }
+
+  //生成遍历器对象
+  const g = generator();
+  //执行函数中代码
+  g.next();
+
+
+
+
+</script>
+</body>
+</html>
