@@ -21,7 +21,7 @@ module.exports = function (grunt) {
           jQuery: true    //让引入第三方库不会报错
         },
       },
-      all: ['Gruntfile.js', 'src/js/module3.js', 'src/js/module4.js', 'src/js/main.js']  //要检查的文件路径
+      all: ['Gruntfile.js', 'src/js/*.js']  //要检查的文件路径
     },
     babel: {
       options: {    //配置选项
@@ -32,17 +32,19 @@ module.exports = function (grunt) {
         files: [{
           expand:true,     //如果设为true，就表示下面文件名的占位符（即*号）都要扩展成具体的文件名。
           cwd:'src/',      //js目录下
-          src:['js/module3.js', 'js/module4.js', 'js/main.js'], //所有js文件
+          src:['js/*.js'], //所有js文件
           dest:'build/'    //输出到此目录下
         }]
       }
     },
-    browserify: {  //将commonjs的模块化转化成浏览器能识别的语法  将所有依赖的模块全部打包生成一个模块输出
+    concat: {   //合并js文件
+      options: {
+        separator: ';',   //多个文件之间的连接符
+      },
       dist: {
-        files: {
-          'build/js/app.js': ['build/js/main.js']
-        }
-      }
+        src: ['build/js/*.js'],   //要合并的文件路径
+        dest: 'build/js/built.js',  //合并后输出的文件路径
+      },
     },
     pkg: grunt.file.readJSON('package.json'),  //读取package.json文件的内容，返回一个变量pkg
     uglify: {   //压缩js
@@ -52,7 +54,7 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {   // 输出文件的路径 : 要处理文件的路径
-          'dist/js/dist.min.js': ['build/js/app.js']
+          'dist/js/dist.min.js': ['build/js/built.js']
         }
       }
     }
@@ -65,7 +67,7 @@ module.exports = function (grunt) {
    */
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-babel');
-  grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   
   //3. 注册默认任务
@@ -73,6 +75,6 @@ module.exports = function (grunt) {
     当你运行grunt指令时，会执行任务列表中的所有任务
     grunt.registerTask('default', [任务列表])
    */
-  grunt.registerTask('default', ['jshint', 'babel', 'browserify', 'uglify']);  //执行任务是同步的，从左往右
+  grunt.registerTask('default', ['jshint', 'babel', 'concat', 'uglify']);  //执行任务是同步的，从左往右
   
 };
