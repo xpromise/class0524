@@ -11,11 +11,16 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
+    "graceful-fs": "^4.1.11",
     "grunt": "^1.0.3",
     "grunt-babel": "^8.0.0",
     "grunt-browserify": "^5.3.0",
     "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-cssmin": "^3.0.0",
+    "grunt-contrib-htmlmin": "^3.0.0",
     "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-uglify": "^4.0.0"
+    "grunt-contrib-less": "^2.0.0",
+    "grunt-contrib-uglify": "^4.0.0",
+    "less-plugin-autoprefix": "^2.0.0"
   }
 }

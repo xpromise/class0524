@@ -55,6 +55,46 @@ module.exports = function (grunt) {
           'dist/js/dist.min.js': ['build/js/app.js']
         }
       }
+    },
+    less: {  //将less文件编译成css文件, 将css文件的兼容性处理好
+      production: {
+        options: {
+          paths: ['build/css'],   //css文件夹的路径
+          plugins: [  //加载插件做相应的任务
+            new (require('less-plugin-autoprefix'))({browsers: ["last 2 versions", "not ie <= 8"]}), //自动扩展css前缀，解决css兼容性问题
+          ]
+        },
+        files: {
+          'build/css/built.css': 'src/less/*.less'
+        }
+      }
+    },
+    cssmin: {  //压缩css代码
+      options: {
+        mergeIntoShorthands: false, // 快速压缩代码
+        roundingPrecision: -1  //不使用四舍五入
+      },
+      target: {
+        files: {
+          'dist/css/dist.min.css': ['build/css/built.css']
+        }
+      }
+    },
+    htmlmin: {   //压缩html
+      dist: {
+        options: {
+          removeComments: true,      // 移除注释
+          collapseWhitespace: true    //去除空格
+        },
+        files: {
+          'dist/index.html': 'src/index.html',
+        }
+      },
+      dev: {
+        files: {
+          'build/index.html': 'src/index.html'
+        }
+      }
     }
   });
   
@@ -67,12 +107,15 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-browserify');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-htmlmin');
   
   //3. 注册默认任务
   /*
     当你运行grunt指令时，会执行任务列表中的所有任务
     grunt.registerTask('default', [任务列表])
    */
-  grunt.registerTask('default', ['jshint', 'babel', 'browserify', 'uglify']);  //执行任务是同步的，从左往右
+  grunt.registerTask('default', ['jshint', 'babel', 'browserify', 'uglify', 'less', 'cssmin', 'htmlmin:dist']);  //执行任务是同步的，从左往右
   
 };
