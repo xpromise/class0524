@@ -95,6 +95,42 @@ module.exports = function (grunt) {
           'build/index.html': 'src/index.html'
         }
       }
+    },
+    watch: {
+      scripts: {
+        files: ['src/js/*.js'],  //要监视的文件
+        tasks: ['jshint', 'babel', 'browserify', 'uglify'],     //一旦监视的文件发生变化，执行执行任务
+        options: {
+          spawn: false,
+        },
+      },
+      less: {
+        files: ['src/less/*.less'],  //要监视的文件
+        tasks: ['less', 'cssmin'],     //一旦监视的文件发生变化，执行执行任务
+        options: {
+          spawn: false,
+        },
+      },
+      html: {
+        files: ['src/index.html'],  //要监视的文件
+        tasks: ['htmlmin'],     //一旦监视的文件发生变化，执行执行任务
+        options: {
+          spawn: false,
+        },
+      },
+    },
+    connect: {
+      server: {
+        options: {
+          port: 3000,
+          base: './dist'
+        }
+      }
+    },
+    open : {
+      dev : {
+        path: 'http://localhost:3000'
+      }
     }
   });
   
@@ -110,6 +146,9 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-open');
   
   //3. 注册默认任务
   /*
@@ -117,5 +156,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [任务列表])
    */
   grunt.registerTask('default', ['jshint', 'babel', 'browserify', 'uglify', 'less', 'cssmin', 'htmlmin:dist']);  //执行任务是同步的，从左往右
+  grunt.registerTask('myWatch', ['default', 'connect', 'open', 'watch']);  //执行任务是同步的，从左往右
+  
   
 };
