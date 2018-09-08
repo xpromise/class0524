@@ -6,14 +6,16 @@ const {resolve} = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CleanCSSPlugin = require("less-plugin-clean-css");
+const webpack = require('webpack');
 
 module.exports = {
   //入口
   entry: './src/js/main.js',
   //输出
   output: {
-    filename: './js/built.js',  //输出文件名称
-    path: resolve(__dirname, '../build')     //文件的输出路径
+    filename: './js/[name].[hash:7].js',  //输出文件名称
+    path: resolve(__dirname, '../dist')     //文件的输出路径
   },
   //loader
   module: {
@@ -32,7 +34,14 @@ module.exports = {
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: ["css-loader", "less-loader"]
+          use: ["css-loader", "postcss-loader", {   // postcss-loader 扩展前缀，配置外面postcss.config.js文件使用
+            loader: "less-loader",
+            options: {
+              plugins: [
+                new CleanCSSPlugin({ advanced: true })  //压缩css代码
+              ]
+            }
+          }]
         })
       },
       {   //file-loader url-loader
@@ -95,12 +104,22 @@ module.exports = {
   },
   //插件
   plugins: [
-    new ExtractTextPlugin("./css/index.css"),
+    new ExtractTextPlugin("./css/[name].[hash:7].css"),
     new HtmlWebpackPlugin({   //以指定文件为模板创建新的html文件，新的文件内会自动引入打包生成的css和js
-      template: './src/index.html'
+      template: './src/index.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true
+      }
     }),
-    new CleanWebpackPlugin('build', {
+    new CleanWebpackPlugin('dist', {   //清除指定目录下所有的文件
       root: resolve(__dirname, '../')
-    })  //清除指定目录下所有的文件
-  ]
+    }),
+    new webpack.optimize.UglifyJsPlugin({ //压缩js代码
+      sourceMap: true
+    }),
+    
+  ],
+  //为了检索压缩后的文件产生错误，有了它就能提示正确的错误函数名/变量名
+  devtool: 'source-map'
 }

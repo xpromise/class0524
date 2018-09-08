@@ -1,5 +1,5 @@
 //引入模块
-import add from './module3';
+import {add} from './module3';
 import sum from './module4';
 
 import data from '../json/data';

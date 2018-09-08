@@ -3,38 +3,12 @@
  */
 const {resolve} = require('path');
 //引入插件模块
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
-  //入口
-  entry: './src/js/main.js',
-  //输出
-  output: {
-    filename: './js/built.js',  //输出文件名称
-    path: resolve(__dirname, '../build')     //文件的输出路径
-  },
   //loader
   module: {
     rules: [  //放置loader规则
-     /* {   //less less-loader css-loader style-loader
-        test: /\.less$/,  //当前loader要处理的文件
-        use: [{         //一旦遇见了指定文件，就执行use中的loader处理此文件   执行顺序都是从右到左
-          loader: "style-loader" // 将js字符串的css代码，最终生成一个style标签插入到页面中
-        }, {
-          loader: "css-loader" // 将css转化成commonjs语法的模块，生成js字符串的css代码
-        }, {
-          loader: "less-loader" // 将less编译成css
-        }]
-      },*/
-      {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: ["css-loader", "less-loader"]
-        })
-      },
       {   //file-loader url-loader
         test: /\.(png|jpg|gif)$/,
         use: [
@@ -87,7 +61,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['es2015']
+            presets: ['es2015', {modules: false}]  //让babel不装换es6的模块化语法
           }
         }
       }
@@ -95,12 +69,8 @@ module.exports = {
   },
   //插件
   plugins: [
-    new ExtractTextPlugin("./css/index.css"),
     new HtmlWebpackPlugin({   //以指定文件为模板创建新的html文件，新的文件内会自动引入打包生成的css和js
       template: './src/index.html'
-    }),
-    new CleanWebpackPlugin('build', {
-      root: resolve(__dirname, '../')
-    })  //清除指定目录下所有的文件
+    })
   ]
 }

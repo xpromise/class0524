@@ -71,7 +71,7 @@ module.exports = {
           }
         ]
       },
-      /*{   // babel-loader@8.0.0-beta.0 @babel/core @babel/preset-env
+      {   // babel-loader@8.0.0-beta.0 @babel/core @babel/preset-env
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
@@ -80,8 +80,8 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
-      }*/
-      {   // babel-preset-es2015  babel-loader@7 babel-core
+      }
+     /* {   // babel-preset-es2015  babel-loader@7 babel-core
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         use: {
@@ -90,7 +90,7 @@ module.exports = {
             presets: ['es2015']
           }
         }
-      }
+      }*/
     ]
   },
   //插件
