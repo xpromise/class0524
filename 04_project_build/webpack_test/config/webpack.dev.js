@@ -3,22 +3,23 @@
  */
 const {resolve} = require('path');
 //引入插件模块
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   //入口
-  entry: './src/js/main.js',
+  entry: ['./src/js/main.js', './src/index.html'],
   //输出
   output: {
     filename: './js/built.js',  //输出文件名称
-    path: resolve(__dirname, 'build')     //文件的输出路径
+    path: resolve(__dirname, '../build')     //文件的输出路径
   },
   //loader
   module: {
     rules: [  //放置loader规则
-     /* {   //less less-loader css-loader style-loader
+      {   //less less-loader css-loader style-loader
         test: /\.less$/,  //当前loader要处理的文件
         use: [{         //一旦遇见了指定文件，就执行use中的loader处理此文件   执行顺序都是从右到左
           loader: "style-loader" // 将js字符串的css代码，最终生成一个style标签插入到页面中
@@ -27,14 +28,14 @@ module.exports = {
         }, {
           loader: "less-loader" // 将less编译成css
         }]
-      },*/
-      {
+      },
+      /*{
         test: /\.less$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: ["css-loader", "less-loader"]
         })
-      },
+      },*/
       {   //file-loader url-loader
         test: /\.(png|jpg|gif)$/,
         use: [
@@ -90,15 +91,32 @@ module.exports = {
             presets: ['es2015']
           }
         }
+      },
+      {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader'  //加载html资源
+        }
       }
     ]
   },
   //插件
   plugins: [
-    new ExtractTextPlugin("./css/index.css"),
+    // new ExtractTextPlugin("./css/index.css"),
     new HtmlWebpackPlugin({   //以指定文件为模板创建新的html文件，新的文件内会自动引入打包生成的css和js
       template: './src/index.html'
     }),
-    new CleanWebpackPlugin(['build'])  //清除指定目录下所有的文件
-  ]
+    /*new CleanWebpackPlugin('build', {  //用不上，因为dev环境没有任何输出，不需要清除目录
+      root: resolve(__dirname, '../')
+    }),  //清除指定目录下所有的文件*/
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()  //热模替换要想生效，必须所有的资源通过指定loader加载
+  ],
+  //服务器  webpack-dev-server@2  webpack-dev-server@ -g
+  devServer: {
+    contentBase: './build',    //项目目录
+    hot: true,    //开启热模替换、类似于热更新功能
+    open: true,    //自动打开浏览器
+    port: 3000,    //端口号
+  },
 }
