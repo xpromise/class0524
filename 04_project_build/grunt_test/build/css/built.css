@@ -1,0 +1,20 @@
+#box1 {
+  width: 100px;
+  height: 100px;
+  background: pink;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+#box1 p {
+  color: lightgreen;
+}
+
+#box2 {
+  width: 200px;
+  height: 200px;
+  background: deeppink;
+}
+#box2 p {
+  color: skyblue;
+}
