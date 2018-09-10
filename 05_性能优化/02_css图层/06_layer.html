@@ -16,8 +16,9 @@
         }
         #title {
             animation: move 1s linear infinite;
-            /*position: relative;
-            z-index: 1;*/
+            /*设置去掉其他多创建的图层*/
+            /*position: relative;*/
+            /*z-index: 1;*/
         }
         h1 {
             font-size: 20px;
@@ -32,6 +33,7 @@
         ul {
             margin: 5px;
             padding: 0;
+            will-change: transform;
         }
         li {
             position: relative;

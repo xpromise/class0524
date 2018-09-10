@@ -8,11 +8,12 @@
 			#test{
 				/*visibility: visible;*/
 				opacity: 1;
+				/*display: block;*/
 				width: 100px;
 				height: 100px;
 				background: pink;
-				transform: translateZ(0);
-				/*will-change: transform;*/
+				/*transform: translateZ(0);*/
+				will-change: opacity;
 			}
 		</style>
 	</head>
@@ -24,8 +25,9 @@
 	<script type="text/javascript">
 		var testNode = document.querySelector("#test");
 		setTimeout(function(){
-//			testNode.style.visibility="hidden";
-			testNode.style.opacity=0;
+      // testNode.style.display = 'none'; //重排 重绘
+      // testNode.style.visibility="hidden";  // 重绘
+			testNode.style.opacity=0;  //重排 重绘
 		},2000);
 	</script>
 </html>
