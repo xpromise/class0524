@@ -93,6 +93,7 @@ img{display: block;}
   background-image: url('../img/arrow.png');
   background-repeat: no-repeat;
   transition: left 1s;
+  will-change: left;
 }
 
 /*内容区*/
